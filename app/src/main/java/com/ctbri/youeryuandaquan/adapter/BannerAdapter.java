@@ -8,16 +8,16 @@ import android.widget.ImageView;
 import com.ctbri.youeryuandaquan.data.AdData;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Luke on 2016/3/25 0025.
  */
 public class BannerAdapter extends PagerAdapter {
-    private List<AdData> datas;
+    private List<AdData> datas = new ArrayList<>();
 
-    public BannerAdapter(List<AdData> datas){
-        this.datas=datas;
+    public BannerAdapter() {
     }
     @Override
     public int getCount() {
@@ -42,5 +42,13 @@ public class BannerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(container.getChildAt(position));
+    }
+
+    public void add(List<AdData> datas) {
+        this.datas.addAll(datas);
+    }
+
+    public void clear() {
+        datas.clear();
     }
 }

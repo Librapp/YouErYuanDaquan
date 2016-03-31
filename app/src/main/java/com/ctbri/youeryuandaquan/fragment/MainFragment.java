@@ -38,7 +38,10 @@ public class MainFragment extends Fragment implements FavFragment.OnListFragment
 
     private int category;
     private int offset = 0, count = 10;
+    private boolean isVisible = false;
 
+    private BannerAdapter bannerAdapter = new BannerAdapter();
+    private AgentAdapter agentAdapter = new AgentAdapter(MainFragment.this);
     private ViewPager viewPager;
     private RecyclerView recyclerView;
 
@@ -69,45 +72,6 @@ public class MainFragment extends Fragment implements FavFragment.OnListFragment
         if (getArguments() != null) {
             category = getArguments().getInt(ARG_PARAM1);
         }
-        OkHttpClientManager.getAsyn(NetUtil.getAdvertisingColumn(getContext()), new OkHttpClientManager.ResultCallback<JsonObject>() {
-            @Override
-            public void onError(Request request, Exception e) {
-                //TODO 重试
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(JsonObject response) {
-                List<AdData> datas = new Gson().fromJson(response.getAsJsonArray("data"), new TypeToken<List<AdData>>() {
-                }.getType());
-                viewPager.setAdapter(new BannerAdapter(datas));
-            }
-        });
-
-        OkHttpClientManager.postAsyn(NetUtil.getByArea(), new OkHttpClientManager.ResultCallback<JsonObject>() {
-            @Override
-            public void onError(Request request, Exception e) {
-                //TODO 重试
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(JsonObject response) {
-                switch (response.get("errorcode").getAsInt()) {
-                    case 0:
-
-                        break;
-                    case 1:
-                        List<YouErYuanData> studentList = new Gson().fromJson(response.getAsJsonArray("data"), new TypeToken<List<YouErYuanData>>() {
-                        }.getType());
-                        recyclerView.setAdapter(new AgentAdapter(studentList, MainFragment.this));
-                        break;
-                }
-            }
-        }, NetUtil.getByArea(MyApplication.locationData.level,
-                MyApplication.locationData.code, "[all]",
-                "all", null, "desc", offset, count));
-
     }
 
     @Override
@@ -115,7 +79,9 @@ public class MainFragment extends Fragment implements FavFragment.OnListFragment
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         viewPager = (ViewPager) rootView.findViewById(R.id.vp_banner);
+        viewPager.setAdapter(bannerAdapter);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
+        recyclerView.setAdapter(agentAdapter);
         return rootView;
     }
 
@@ -134,6 +100,66 @@ public class MainFragment extends Fragment implements FavFragment.OnListFragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
+        if (isVisibleToUser) {
+            // 相当于Fragment的onResume
+            if (bannerAdapter.getCount() == 0)
+                getAdData();
+            if (agentAdapter.getItemCount() == 0)
+                getAgentData(offset, count);
+        } else {
+            // 相当于Fragment的onPause
+        }
+    }
+
+    private void getAdData() {
+        OkHttpClientManager.getAsyn(NetUtil.getAdvertisingColumn(getContext()), new OkHttpClientManager.ResultCallback<JsonObject>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                //TODO 重试
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(JsonObject response) {
+                List<AdData> datas = new Gson().fromJson(response.getAsJsonArray("data"), new TypeToken<List<AdData>>() {
+                }.getType());
+                bannerAdapter.add(datas);
+                bannerAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void getAgentData(int offset, int count) {
+        OkHttpClientManager.postAsyn(NetUtil.getByArea(), new OkHttpClientManager.ResultCallback<JsonObject>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                //TODO 重试
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(JsonObject response) {
+                switch (response.get("errorcode").getAsInt()) {
+                    case 0:
+
+                        break;
+                    case 1:
+                        List<YouErYuanData> datas = new Gson().fromJson(response.getAsJsonArray("data"), new TypeToken<List<YouErYuanData>>() {
+                        }.getType());
+                        agentAdapter.add(datas);
+                        agentAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+        }, NetUtil.getByArea(MyApplication.locationData.level,
+                MyApplication.locationData.code, "[all]",
+                "all", null, "desc", offset, count));
     }
 
     @Override

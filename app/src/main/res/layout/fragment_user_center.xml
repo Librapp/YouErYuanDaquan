@@ -1,0 +1,287 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_cc"
+    android:orientation="vertical"
+    tools:context="com.ctbri.youeryuandaquan.fragment.UserCenterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_unlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/tv_login"
+                style="@style/UserCenterLoginButton"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:text="@string/login" />
+
+            <Button
+                android:id="@+id/tv_register"
+                style="@style/UserCenterLoginButton"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/tv_login"
+                android:text="@string/register" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_user_pic"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/UserCenterTextView"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/iv_user_pic"
+                android:text="@string/login" />
+
+            <TextView
+                android:id="@+id/tv_user_date"
+                style="@style/UserCenterTextView"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@+id/iv_user_pic"
+                android:layout_toRightOf="@+id/iv_user_pic"
+                android:text="@string/register" />
+
+            <TextView
+                android:id="@+id/tv_user_edit"
+                style="@style/UserCenterTextView"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/edit"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/tv_user_logout"
+                style="@style/UserCenterLoginButton"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@+id/iv_user_pic"
+                android:layout_alignParentRight="true"
+                android:text="@string/logout" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_age_settings"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:drawableLeft="@mipmap/age_settings"
+                android:text="@string/age_settings" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_age_settings"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/all" />
+
+                <RadioButton
+                    android:id="@+id/rb_zero_two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/zero_two" />
+
+                <RadioButton
+                    android:id="@+id/rb_two_four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/two_four" />
+
+                <RadioButton
+                    android:id="@+id/rb_four_six"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/four_six" />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_apps_recommend"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:drawableLeft="@mipmap/apps_recommend"
+                android:text="@string/apps_recommend" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_apps_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_apps_recommend"
+                android:orientation="horizontal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_hot_activities"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+
+                android:drawableLeft="@mipmap/hot_activities"
+                android:text="@string/hot_activities" />
+
+            <ImageView
+                android:id="@+id/iv_hot_activities"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_below="@+id/tv_hot_activities" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_edu_shop"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:drawableLeft="@mipmap/edu_shop"
+                android:text="@string/edu_shop" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_edu_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_edu_shop"
+                android:orientation="horizontal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_check_update"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/check_update" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_feedback"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/feedback" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_contact_us"
+                style="@style/UserCenterTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/contact_us" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

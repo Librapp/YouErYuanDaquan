@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ctbri.youeryuandaquan.R;
-import com.ctbri.youeryuandaquan.data.YouErYuanData;
-import com.ctbri.youeryuandaquan.fragment.FavFragment;
+import com.ctbri.youeryuandaquan.data.APKData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,12 +20,11 @@ import java.util.List;
  * @description 幼儿园列表适配器
  * @createTime 2014/1/22
  */
-public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.ViewHolder> {
-    private final List<YouErYuanData> mValues = new ArrayList<>();
-    private final FavFragment.OnListFragmentInteractionListener mListener;
+public class APKAdapter extends RecyclerView.Adapter<APKAdapter.ViewHolder> {
+    private final List<APKData> mValues = new ArrayList<>();
 
-    public AgentAdapter(FavFragment.OnListFragmentInteractionListener listener) {
-        mListener = listener;
+    public APKAdapter() {
+
     }
 
     @Override
@@ -40,16 +38,11 @@ public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.ViewHolder> 
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.name.setText(holder.mItem.name);
-        holder.mark.setText(holder.mItem.mark + "");
-        Picasso.with(holder.context).load(holder.mItem.cover).into(holder.imageView);
+        Picasso.with(holder.context).load(holder.mItem.iconPath).into(holder.imageView);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+                //TODO
             }
         });
     }
@@ -62,22 +55,20 @@ public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView name;
-        public final TextView mark;
         public final ImageView imageView;
         public final Context context;
-        public YouErYuanData mItem;
+        public APKData mItem;
 
         public ViewHolder(View view) {
             super(view);
-            context=view.getContext();
+            context = view.getContext();
             mView = view;
             name = (TextView) view.findViewById(R.id.tv_item_name);
-            mark = (TextView) view.findViewById(R.id.tv_item_mark);
             imageView = (ImageView) view.findViewById(R.id.iv_item_pic);
         }
     }
 
-    public void add(List<YouErYuanData> items) {
+    public void add(List<APKData> items) {
         mValues.addAll(items);
     }
 

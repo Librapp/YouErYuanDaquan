@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ctbri.youeryuandaquan.fragment.FavFragment;
 import com.ctbri.youeryuandaquan.fragment.MainFragment;
+import com.ctbri.youeryuandaquan.fragment.UserCenterFragment;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
 
@@ -99,19 +101,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment f=PlaceholderFragment.newInstance(position + 1);
+            Fragment f = PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
-                    f=MainFragment.newInstance(position);
+                    f = MainFragment.newInstance(position);
                     break;
                 case 1:
-                    f=MainFragment.newInstance(position);
+                    f = MainFragment.newInstance(position);
                     break;
                 case 2:
-
+                    f = FavFragment.newInstance(1);
                     break;
                 case 3:
-
+                    f = UserCenterFragment.newInstance();
                     break;
             }
             return f;
